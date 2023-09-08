@@ -11,7 +11,5 @@ urlpatterns = [
          views.publisher, name='publisher'),
     path('games/', views.GameListView.as_view(), name='games'),
     path('game/<int:pk>', views.GameDetailView.as_view(), name='game'),
-    path('i18n/', include('django.conf.urls.i18n')),
-    # api
-    path('game-reviews', views.ReviewListApi.as_view())
+    path('i18n/', include('django.conf.urls.i18n'))
 ]

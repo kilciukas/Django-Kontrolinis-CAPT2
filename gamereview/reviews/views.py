@@ -9,13 +9,9 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.views.generic.edit import FormMixin
 from django.db.models import Max
-# papildomai importuojame permissions!
-from rest_framework import generics, permissions
-from .serializers import GameReviewSerializer
 
 
 def index(request):
-
     return render(request, "index.html")
 
 
@@ -60,7 +56,6 @@ class GameDetailView(FormMixin, generic.DetailView):
     form_class = GameReviewForm
 
     # nurodome, kur atsidursime komentaro sėkmės atveju.
-
     def get_success_url(self):
         return reverse('game', kwargs={'pk': self.object.id})
 
@@ -78,13 +73,3 @@ class GameDetailView(FormMixin, generic.DetailView):
         form.save()
         return super(GameDetailView, self).form_valid(form)
 
-# API
-
-
-class ReviewListApi(generics.ListAPIView):
-    queryset = GameReview.objects.all()
-    serializer_class = GameReviewSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def perform_create(self, serializer):
-        serializer.save(reviewer=self.request.user)

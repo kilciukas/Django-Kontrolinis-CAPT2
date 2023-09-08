@@ -10,7 +10,15 @@
   </br>
   
     <h4>Reviews:</h4>
-    {% if game.gamereview.all %}
+    {% if game.gamereview.all %} {% comment %} KAIP PASIEKTI GAMEREVIEWS INFO IS GAME MODELIO JEI JU GAME MODELYJE NERA? ATSIMINKITE ATVIRKSTI PROCESA :) PASAKOJAU PER PASKAITA {% endcomment %}
+    {% comment %}
+        {% for review in KAS CIA DABAR %}
+        <hr> 
+        <strong>APZVALGA</strong>, <em>DATA</em>
+        <p>{{ KONTENTAS }}</p>
+        <h5>{{ REITINGAS }} / 100</h5>
+      {% endfor %}
+    {% endcomment %}
     {% else %}
       <p>Game doesn't have reviews</p>
     {% endif %}

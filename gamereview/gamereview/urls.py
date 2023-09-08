@@ -23,6 +23,7 @@ from django.conf import settings
 urlpatterns = [
     path('reviews/', include('reviews.urls')),
     path('', RedirectView.as_view(url='reviews/', permanent=True)),
+    path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
