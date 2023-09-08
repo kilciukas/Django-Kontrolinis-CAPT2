@@ -39,9 +39,13 @@ class PublisherView(generic.ListView):
     paginate_by = 3
 
 
-def publisher(request, publisher_id):
-    single_publisher = get_object_or_404(Publisher, pk=publisher_id)
-    return render(request, 'publisher.html', {'publisher': single_publisher})
+# def publisher(request, publisher_id):
+#     single_publisher = get_object_or_404(Publisher, pk=publisher_id)
+#     return render(request, 'publisher.html', {'publisher': single_publisher})
+
+class PublisherDetailView(generic.DetailView):
+    model = Publisher
+    template_name = 'publisher.html'
 
 
 class GameListView(generic.ListView):
