@@ -4,30 +4,47 @@
 {% block content %}
   <div class="col-md-4">
       <h1>{{ game.title }}</h1>
+
+           {% if game.cover %}
+        <img src="{{ game.cover.url }}" class="card-img-top" alt="...">
+      {% else %}
+        <img src="{% static 'img/no-image.png' %}" class="card-img-top">
+      {% endif %}
+     
     <p><strong>Publisher:</strong> <a href="{% url 'publisher' game.publisher.pk %}">{{ game.publisher }}</a></p>
     <p><strong>Genre:</strong> {{ game.genre.all|join:", " }}</p>  
     <p><strong>Description:</strong> {{ game.summary }}</p>
   </br>
   
-    <h4>Reviews:</h4>
-    {% if game.gamereview.all %} {% comment %} KAIP PASIEKTI GAMEREVIEWS INFO IS GAME MODELIO JEI JU GAME MODELYJE NERA? ATSIMINKITE ATVIRKSTI PROCESA :) PASAKOJAU PER PASKAITA {% endcomment %}
-    {% comment %}
-        {% for review in KAS CIA DABAR %}
-        <hr> 
-        <strong>APZVALGA</strong>, <em>DATA</em>
-        <p>{{ KONTENTAS }}</p>
-        <h5>{{ REITINGAS }} / 100</h5>
-      {% endfor %}
-    {% endcomment %}
-    {% else %}
-      <p>Game doesn't have reviews</p>
-    {% endif %}
-  </br>
-  <hr> 
-    <form action="" method="post">
+  <h4>Reviews:</h4>
+  {% if game.gamereview_set.all %}
+    {% for review in game.gamereview_set.all %}
+      <hr> 
+      <strong>{{ review.reviewer }}</strong>, <em>{{ review.date_created}}</em>
+      <p>{{ review.content }}</p>
+      <h5>{{ review.rating }} / 100</h5>
+    {% endfor %}
+  {% else %}
+    <p>Game doesn't have reviews</p>
+  {% endif %}
+</br>
+<hr> 
+    <!-- <form action="" method="post">
       {% csrf_token %}
       {{ form }}
       <input type="submit" value="Išsaugoti">
     </form>
-  </div>
+  </div> -->
+
+  {% if user.is_authenticated %}
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Išsaugoti">
+{% else %}
+<p>Prisijunkite norėdami komentuoti</p>
+{% endif %}
+  </form>
+</div>
+
 {% endblock %}

@@ -57,7 +57,7 @@
             {% get_current_language as LANGUAGE_CODE %}
             {% get_available_languages as LANGUAGES %}
             {% for lang in LANGUAGES %}
-            <option style="background-image: url({% static 'img/lt.png' %});" value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %} selected="selected" {% endif %}>
+            <option style="background-image: url('{% static 'img/lt.png' %}');" value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %} selected="selected" {% endif %}>
               {{ lang.1 }}
             </option>
             {% endfor %}
